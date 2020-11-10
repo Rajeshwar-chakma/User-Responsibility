@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Header: XXEDP_USER_RESP_ASGNMNT.xml 100.000000 2020-09-09 00:00:00 cemlisup $ -->
+<dataTemplate version="1.0" name="XXEDP_USER_RESP_ASGNMNT" defaultPackage="XXEDP_USER_RESP_ASGNMNT_PKG">
+<properties> 
+	<property name="xml_tag_case" value="upper"/>
+</properties>
+<dataQuery>
+<sqlStatement name="Q_SHEET">
+<![CDATA[ 
+SELECT 
+	REPORT_RUN_DATE,
+	INSTANCE_NAME,
+	ORGANIZATION_D,
+	ORGANIZATION_TYPE,
+	TAB_NAME
+FROM XXUSER_RESPONSIBILITY_HEADER userh
+WHERE userh.request_id=FND_GLOBAL.CONC_REQUEST_ID
+]]>
+</sqlStatement>
+<sqlStatement name="Q_MAIN"> 
+<![CDATA[ 
+SELECT
+	USER_ID,
+	USER_NAME,
+    FULL_NAME,
+	EMPLOYEE_NUMBER,
+	FROM_EFFECTIVE_DATE_U,
+    TO_EFFECTIVE_DATE_U,
+	CREATED_BY,
+	CREATED_BY_NAME,
+	CREATION_DATE,
+	LAST_UPDATED_BY,
+	LAST_UPDATED_BY_NAME,
+	LAST_UPDATED_DATE,
+	RESPONSIBILITY_NAME,
+	APPLICATION_NAME,
+	SECURITY_GROUP,
+	FROM_EFFECTIVE_DATE_R,
+	TO_EFFECTIVE_DATE_R,
+	ASSIGNED_BY,
+	ASSIGNED_BY_NAME,
+	ASSIGNED_DATE,
+	ASSIGNMENT_UPDATED_BY,
+	ASSIGNMENT_UPDATED_BY_NAME,
+	ASSIGNMENT_UPDATED_DATE
+FROM XXUSER_RESPONSIBILITY_DETAIL userd
+WHERE userd.ORGANIZATION=:ORGANIZATION_D
+AND userd.request_id=FND_GLOBAL.CONC_REQUEST_ID
+]]>
+</sqlStatement>	
+</dataQuery>
+<dataTrigger name="beforeReportTrigger" source="XXEDP_USER_RESP_ASGNMNT_PKG.beforeReportTrigger"/>
+<dataStructure>
+	<group name="Q_SHEET" dataType="varchar2" source="Q_SHEET">
+	  <element name="REPORT_RUN_DATE"                  value="REPORT_RUN_DATE"            dataType="varchar2"/>
+	  <element name="INSTANCE_NAME"                    value="INSTANCE_NAME"              dataType="varchar2"/>
+	  <element name="ORGANIZATION_D"                   value="ORGANIZATION_D"             dataType="varchar2"/>
+	  <element name="ORGANIZATION_TYPE"                value="ORGANIZATION_TYPE"          dataType="varchar2"/>
+	  <element name="TAB_NAME"                         value="TAB_NAME"                   dataType="varchar2"/>
+	  <group name="Q_MAIN" dataType="varchar2" source="Q_MAIN">
+		  <element name="USER_ID"                      value="USER_ID"                    dataType="varchar2"/>
+		  <element name="USER_NAME"                    value="USER_NAME"                  dataType="varchar2"/>
+		  <element name="FULL_NAME"                    value="FULL_NAME"                  dataType="varchar2"/>
+		  <element name="EMPLOYEE_NUMBER"              value="EMPLOYEE_NUMBER"            dataType="varchar2"/>
+		  <element name="FROM_EFFECTIVE_DATE_U"        value="FROM_EFFECTIVE_DATE_U"      dataType="varchar2"/>
+		  <element name="TO_EFFECTIVE_DATE_U"          value="TO_EFFECTIVE_DATE_U"        dataType="varchar2"/>
+		  <element name="CREATED_BY"                   value="CREATED_BY"                 dataType="varchar2"/>
+		  <element name="CREATED_BY_NAME"              value="CREATED_BY_NAME"            dataType="varchar2"/>
+		  <element name="CREATION_DATE"                value="CREATION_DATE"              dataType="varchar2"/>
+		  <element name="LAST_UPDATED_BY"              value="LAST_UPDATED_BY"            dataType="varchar2"/>
+		  <element name="LAST_UPDATED_BY_NAME"         value="LAST_UPDATED_BY_NAME"       dataType="varchar2"/>
+		  <element name="LAST_UPDATED_DATE"            value="LAST_UPDATED_DATE"          dataType="varchar2"/>
+		  <element name="RESPONSIBILITY_NAME"          value="RESPONSIBILITY_NAME"        dataType="varchar2"/>
+		  <element name="APPLICATION_NAME"             value="APPLICATION_NAME"           dataType="varchar2"/>
+		  <element name="SECURITY_GROUP"               value="SECURITY_GROUP"             dataType="varchar2"/>
+		  <element name="FROM_EFFECTIVE_DATE_R"        value="FROM_EFFECTIVE_DATE_R"      dataType="varchar2"/>
+		  <element name="TO_EFFECTIVE_DATE_R"          value="TO_EFFECTIVE_DATE_R"        dataType="varchar2"/>
+		  <element name="ASSIGNED_BY"                  value="ASSIGNED_BY"                dataType="varchar2"/>
+		  <element name="ASSIGNED_BY_NAME"             value="ASSIGNED_BY_NAME"           dataType="varchar2"/>
+		  <element name="ASSIGNED_DATE"                value="ASSIGNED_DATE"              dataType="varchar2"/>
+		  <element name="ASSIGNMENT_UPDATED_BY"        value="ASSIGNMENT_UPDATED_BY"      dataType="varchar2"/>
+		  <element name="ASSIGNMENT_UPDATED_BY_NAME"   value="ASSIGNMENT_UPDATED_BY_NAME" dataType="varchar2"/>
+		  <element name="ASSIGNMENT_UPDATED_DATE"      value="ASSIGNMENT_UPDATED_DATE"    dataType="varchar2"/>
+	  </group>
+	</group>
+</dataStructure>
+</dataTemplate>
